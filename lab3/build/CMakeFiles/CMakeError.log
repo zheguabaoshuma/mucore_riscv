@@ -1,0 +1,267 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /usr/bin/riscv64-unknown-elf-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_5d58c && [1/2] Building C object CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o
+Using built-in specs.
+COLLECT_GCC=/usr/bin/riscv64-unknown-elf-gcc
+Target: riscv64-unknown-elf
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --target=riscv64-unknown-elf --prefix=/usr --infodir=/usr/share/doc/gcc-riscv64-unknown-elf/info --mandir=/usr/share/man --htmldir=/usr/share/doc/gcc-riscv64-unknown-elf/html --pdfdir=/usr/share/doc/gcc-riscv64-unknown-elf/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --with-pkgversion= --disable-shared --disable-threads --enable-languages=c,c++ --enable-tls --with-newlib --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls --with-system-zlib --enable-checking=yes --enable-multilib --with-abi=lp64d --disable-libstdcxx-pch --disable-libstdcxx --disable-fixinc --with-arch=rv64imafdc --with-gnu-as --with-gnu-ld --with-as=/usr/lib/riscv64-unknown-elf/bin/as --with-ld=/usr/lib/riscv64-unknown-elf/bin/ld AR_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ar AS_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/as NM_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/nm LD_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ld OBJDUMP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/objdump RANLIB_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ranlib READELF_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/readelf STRIP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/strip CFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' GCJFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' LDFLAGS='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now' OBJCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' 'CFLAGS_FOR_TARGET=-Os -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-Os -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 () 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/cc1 -quiet -v -imultilib rv64imafdc/lp64d /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=rv64imafdc -mabi=lp64d -auxbase-strip CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccxnj3ZF.s
+GNU C17 () version 10.2.0 (riscv64-unknown-elf)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.2.0-rc1, isl version none
+warning: GMP header version 6.2.0 differs from library version 6.2.1.
+warning: MPC header version 1.2.0-rc1 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+ignoring nonexistent directory "/usr/lib/gcc/riscv64-unknown-elf/10.2.0/../../../../riscv64-unknown-elf/sys-include"
+ignoring nonexistent directory "/usr/lib/gcc/riscv64-unknown-elf/10.2.0/../../../../riscv64-unknown-elf/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/include
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/include-fixed
+End of search list.
+GNU C17 () version 10.2.0 (riscv64-unknown-elf)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.2.0-rc1, isl version none
+warning: GMP header version 6.2.0 differs from library version 6.2.1.
+warning: MPC header version 1.2.0-rc1 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+Compiler executable checksum: 25503746c4b264fb4a430029e3344b15
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/riscv64-unknown-elf/bin/as -v --traditional-format -march=rv64imafdc -mabi=lp64d -o CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o /tmp/ccxnj3ZF.s
+GNU assembler version 2.35.1 (riscv64-unknown-elf) using BFD version () 2.35.1
+COMPILER_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/
+LIBRARY_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+[2/2] Linking C executable cmTC_5d58c
+FAILED: cmTC_5d58c 
+: && /usr/bin/riscv64-unknown-elf-gcc  -v CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o -o cmTC_5d58c   && :
+Using built-in specs.
+COLLECT_GCC=/usr/bin/riscv64-unknown-elf-gcc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/lto-wrapper
+Target: riscv64-unknown-elf
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --target=riscv64-unknown-elf --prefix=/usr --infodir=/usr/share/doc/gcc-riscv64-unknown-elf/info --mandir=/usr/share/man --htmldir=/usr/share/doc/gcc-riscv64-unknown-elf/html --pdfdir=/usr/share/doc/gcc-riscv64-unknown-elf/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --with-pkgversion= --disable-shared --disable-threads --enable-languages=c,c++ --enable-tls --with-newlib --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls --with-system-zlib --enable-checking=yes --enable-multilib --with-abi=lp64d --disable-libstdcxx-pch --disable-libstdcxx --disable-fixinc --with-arch=rv64imafdc --with-gnu-as --with-gnu-ld --with-as=/usr/lib/riscv64-unknown-elf/bin/as --with-ld=/usr/lib/riscv64-unknown-elf/bin/ld AR_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ar AS_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/as NM_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/nm LD_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ld OBJDUMP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/objdump RANLIB_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ranlib READELF_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/readelf STRIP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/strip CFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' GCJFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' LDFLAGS='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now' OBJCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' 'CFLAGS_FOR_TARGET=-Os -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-Os -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 () 
+COMPILER_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/
+LIBRARY_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_5d58c' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/collect2 -plugin /usr/lib/gcc/riscv64-unknown-elf/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cc8qizVP.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgloss -plugin-opt=-pass-through=-lgcc -melf64lriscv -o cmTC_5d58c crt0.o /usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/crtbegin.o -L/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d -L/usr/lib/gcc/riscv64-unknown-elf/10.2.0 CMakeFiles/cmTC_5d58c.dir/CMakeCCompilerABI.c.o -lgcc --start-group -lc -lgloss --end-group -lgcc /usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/crtend.o
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_feec6 && [1/2] Building C object CMakeFiles/cmTC_feec6.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_feec6
+FAILED: cmTC_feec6 
+: && /usr/bin/riscv64-unknown-elf-gcc   CMakeFiles/cmTC_feec6.dir/testCCompiler.c.o -o cmTC_feec6   && :
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /usr/bin/riscv64-unknown-elf-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_8010d && [1/2] Building C object CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o
+Using built-in specs.
+COLLECT_GCC=/usr/bin/riscv64-unknown-elf-gcc
+Target: riscv64-unknown-elf
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --target=riscv64-unknown-elf --prefix=/usr --infodir=/usr/share/doc/gcc-riscv64-unknown-elf/info --mandir=/usr/share/man --htmldir=/usr/share/doc/gcc-riscv64-unknown-elf/html --pdfdir=/usr/share/doc/gcc-riscv64-unknown-elf/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --with-pkgversion= --disable-shared --disable-threads --enable-languages=c,c++ --enable-tls --with-newlib --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls --with-system-zlib --enable-checking=yes --enable-multilib --with-abi=lp64d --disable-libstdcxx-pch --disable-libstdcxx --disable-fixinc --with-arch=rv64imafdc --with-gnu-as --with-gnu-ld --with-as=/usr/lib/riscv64-unknown-elf/bin/as --with-ld=/usr/lib/riscv64-unknown-elf/bin/ld AR_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ar AS_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/as NM_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/nm LD_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ld OBJDUMP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/objdump RANLIB_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ranlib READELF_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/readelf STRIP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/strip CFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' GCJFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' LDFLAGS='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now' OBJCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' 'CFLAGS_FOR_TARGET=-Os -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-Os -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 () 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/cc1 -quiet -v -imultilib rv64imafdc/lp64d /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=rv64imafdc -mabi=lp64d -auxbase-strip CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccudVLVv.s
+GNU C17 () version 10.2.0 (riscv64-unknown-elf)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.2.0-rc1, isl version none
+warning: GMP header version 6.2.0 differs from library version 6.2.1.
+warning: MPC header version 1.2.0-rc1 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+ignoring nonexistent directory "/usr/lib/gcc/riscv64-unknown-elf/10.2.0/../../../../riscv64-unknown-elf/sys-include"
+ignoring nonexistent directory "/usr/lib/gcc/riscv64-unknown-elf/10.2.0/../../../../riscv64-unknown-elf/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/include
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/include-fixed
+End of search list.
+GNU C17 () version 10.2.0 (riscv64-unknown-elf)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.2.0-rc1, isl version none
+warning: GMP header version 6.2.0 differs from library version 6.2.1.
+warning: MPC header version 1.2.0-rc1 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+Compiler executable checksum: 25503746c4b264fb4a430029e3344b15
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/riscv64-unknown-elf/bin/as -v --traditional-format -march=rv64imafdc -mabi=lp64d -o CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o /tmp/ccudVLVv.s
+GNU assembler version 2.35.1 (riscv64-unknown-elf) using BFD version () 2.35.1
+COMPILER_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/
+LIBRARY_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+[2/2] Linking C executable cmTC_8010d
+FAILED: cmTC_8010d 
+: && /usr/bin/riscv64-unknown-elf-gcc  -v CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o -o cmTC_8010d   && :
+Using built-in specs.
+COLLECT_GCC=/usr/bin/riscv64-unknown-elf-gcc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/lto-wrapper
+Target: riscv64-unknown-elf
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --target=riscv64-unknown-elf --prefix=/usr --infodir=/usr/share/doc/gcc-riscv64-unknown-elf/info --mandir=/usr/share/man --htmldir=/usr/share/doc/gcc-riscv64-unknown-elf/html --pdfdir=/usr/share/doc/gcc-riscv64-unknown-elf/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --with-pkgversion= --disable-shared --disable-threads --enable-languages=c,c++ --enable-tls --with-newlib --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls --with-system-zlib --enable-checking=yes --enable-multilib --with-abi=lp64d --disable-libstdcxx-pch --disable-libstdcxx --disable-fixinc --with-arch=rv64imafdc --with-gnu-as --with-gnu-ld --with-as=/usr/lib/riscv64-unknown-elf/bin/as --with-ld=/usr/lib/riscv64-unknown-elf/bin/ld AR_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ar AS_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/as NM_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/nm LD_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ld OBJDUMP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/objdump RANLIB_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ranlib READELF_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/readelf STRIP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/strip CFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' GCJFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' LDFLAGS='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now' OBJCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' 'CFLAGS_FOR_TARGET=-Os -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-Os -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 () 
+COMPILER_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/
+LIBRARY_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_8010d' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/collect2 -plugin /usr/lib/gcc/riscv64-unknown-elf/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccDO5PG1.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgloss -plugin-opt=-pass-through=-lgcc -melf64lriscv -o cmTC_8010d crt0.o /usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/crtbegin.o -L/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d -L/usr/lib/gcc/riscv64-unknown-elf/10.2.0 CMakeFiles/cmTC_8010d.dir/CMakeCCompilerABI.c.o -lgcc --start-group -lc -lgloss --end-group -lgcc /usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/crtend.o
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_a7f91 && [1/2] Building C object CMakeFiles/cmTC_a7f91.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_a7f91
+FAILED: cmTC_a7f91 
+: && /usr/bin/riscv64-unknown-elf-gcc   CMakeFiles/cmTC_a7f91.dir/testCCompiler.c.o -o cmTC_a7f91   && :
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /usr/bin/riscv64-unknown-elf-gcc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_e8b6f && [1/2] Building C object CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o
+Using built-in specs.
+COLLECT_GCC=/usr/bin/riscv64-unknown-elf-gcc
+Target: riscv64-unknown-elf
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --target=riscv64-unknown-elf --prefix=/usr --infodir=/usr/share/doc/gcc-riscv64-unknown-elf/info --mandir=/usr/share/man --htmldir=/usr/share/doc/gcc-riscv64-unknown-elf/html --pdfdir=/usr/share/doc/gcc-riscv64-unknown-elf/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --with-pkgversion= --disable-shared --disable-threads --enable-languages=c,c++ --enable-tls --with-newlib --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls --with-system-zlib --enable-checking=yes --enable-multilib --with-abi=lp64d --disable-libstdcxx-pch --disable-libstdcxx --disable-fixinc --with-arch=rv64imafdc --with-gnu-as --with-gnu-ld --with-as=/usr/lib/riscv64-unknown-elf/bin/as --with-ld=/usr/lib/riscv64-unknown-elf/bin/ld AR_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ar AS_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/as NM_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/nm LD_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ld OBJDUMP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/objdump RANLIB_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ranlib READELF_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/readelf STRIP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/strip CFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' GCJFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' LDFLAGS='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now' OBJCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' 'CFLAGS_FOR_TARGET=-Os -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-Os -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 () 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/cc1 -quiet -v -imultilib rv64imafdc/lp64d /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=rv64imafdc -mabi=lp64d -auxbase-strip CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o -version -o /tmp/cc5OXqz2.s
+GNU C17 () version 10.2.0 (riscv64-unknown-elf)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.2.0-rc1, isl version none
+warning: GMP header version 6.2.0 differs from library version 6.2.1.
+warning: MPC header version 1.2.0-rc1 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+ignoring nonexistent directory "/usr/lib/gcc/riscv64-unknown-elf/10.2.0/../../../../riscv64-unknown-elf/sys-include"
+ignoring nonexistent directory "/usr/lib/gcc/riscv64-unknown-elf/10.2.0/../../../../riscv64-unknown-elf/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/include
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/include-fixed
+End of search list.
+GNU C17 () version 10.2.0 (riscv64-unknown-elf)
+	compiled by GNU C version 10.2.0, GMP version 6.2.0, MPFR version 4.1.0, MPC version 1.2.0-rc1, isl version none
+warning: GMP header version 6.2.0 differs from library version 6.2.1.
+warning: MPC header version 1.2.0-rc1 differs from library version 1.2.1.
+GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+Compiler executable checksum: 25503746c4b264fb4a430029e3344b15
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/riscv64-unknown-elf/bin/as -v --traditional-format -march=rv64imafdc -mabi=lp64d -o CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o /tmp/cc5OXqz2.s
+GNU assembler version 2.35.1 (riscv64-unknown-elf) using BFD version () 2.35.1
+COMPILER_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/
+LIBRARY_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o' '-c' '-march=rv64imafdc' '-mabi=lp64d'
+[2/2] Linking C executable cmTC_e8b6f
+FAILED: cmTC_e8b6f 
+: && /usr/bin/riscv64-unknown-elf-gcc  -v CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o -o cmTC_e8b6f   && :
+Using built-in specs.
+COLLECT_GCC=/usr/bin/riscv64-unknown-elf-gcc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/lto-wrapper
+Target: riscv64-unknown-elf
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --target=riscv64-unknown-elf --prefix=/usr --infodir=/usr/share/doc/gcc-riscv64-unknown-elf/info --mandir=/usr/share/man --htmldir=/usr/share/doc/gcc-riscv64-unknown-elf/html --pdfdir=/usr/share/doc/gcc-riscv64-unknown-elf/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --with-pkgversion= --disable-shared --disable-threads --enable-languages=c,c++ --enable-tls --with-newlib --with-native-system-header-dir=/include --disable-libmudflap --disable-libssp --disable-libquadmath --disable-libgomp --disable-nls --with-system-zlib --enable-checking=yes --enable-multilib --with-abi=lp64d --disable-libstdcxx-pch --disable-libstdcxx --disable-fixinc --with-arch=rv64imafdc --with-gnu-as --with-gnu-ld --with-as=/usr/lib/riscv64-unknown-elf/bin/as --with-ld=/usr/lib/riscv64-unknown-elf/bin/ld AR_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ar AS_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/as NM_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/nm LD_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ld OBJDUMP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/objdump RANLIB_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/ranlib READELF_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/readelf STRIP_FOR_TARGET=/usr/lib/riscv64-unknown-elf/bin/strip CFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' FFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' GCJFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' LDFLAGS='-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now' OBJCFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -fdebug-prefix-map=/build/gcc-riscv64-unknown-elf-LkcieF/gcc-riscv64-unknown-elf-10.2.0=. -fstack-protector-strong' 'CFLAGS_FOR_TARGET=-Os -mcmodel=medany' 'CXXFLAGS_FOR_TARGET=-Os -mcmodel=medany'
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 10.2.0 () 
+COMPILER_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/:/usr/lib/gcc/riscv64-unknown-elf/
+LIBRARY_PATH=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/:/usr/lib/gcc/riscv64-unknown-elf/10.2.0/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e8b6f' '-march=rv64imafdc' '-mabi=lp64d'
+ /usr/lib/gcc/riscv64-unknown-elf/10.2.0/collect2 -plugin /usr/lib/gcc/riscv64-unknown-elf/10.2.0/liblto_plugin.so -plugin-opt=/usr/lib/gcc/riscv64-unknown-elf/10.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccKlRtqC.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgloss -plugin-opt=-pass-through=-lgcc -melf64lriscv -o cmTC_e8b6f crt0.o /usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/crtbegin.o -L/usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d -L/usr/lib/gcc/riscv64-unknown-elf/10.2.0 CMakeFiles/cmTC_e8b6f.dir/CMakeCCompilerABI.c.o -lgcc --start-group -lc -lgloss --end-group -lgcc /usr/lib/gcc/riscv64-unknown-elf/10.2.0/rv64imafdc/lp64d/crtend.o
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/ninja cmTC_94969 && [1/2] Building C object CMakeFiles/cmTC_94969.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_94969
+FAILED: cmTC_94969 
+: && /usr/bin/riscv64-unknown-elf-gcc   CMakeFiles/cmTC_94969.dir/testCCompiler.c.o -o cmTC_94969   && :
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find crt0.o: No such file or directory
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lc
+/usr/lib/riscv64-unknown-elf/bin/ld: cannot find -lgloss
+collect2: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.
+
+
+
