@@ -1823,7 +1823,62 @@ lab3主要的工作是缺页异常以及换页算法的实现。众所周知，�
 > }
 > ```
 > 
-> 在初始化函数`swapfs_init()`中, 
+> 在初始化函数`swapfs_init()`中, 首先`static_assert`检查页面大小是不是扇区的整数倍，如果不是则进入恐慌. `ide_device_valid`函数来检查交换设备是否可用。如果不可用，它将会触发一个内核崩溃，输出一条错误信息。最后，它计算了交换设备的最大偏移量，并将其存储在`max_swap_offset`变量中。
+> 
+> 下面的`swpfs_read()`和`swapfs_write()`则是对应的读写函数, 这两个函数的实质可以在`ide.c`的文件中找到实现
+> 
+> ```c
+> void ide_init(void) {}
+> 
+> #define MAX_IDE 2
+> #define MAX_DISK_NSECS 56
+> static char ide[MAX_DISK_NSECS * SECTSIZE];
+> 
+> bool ide_device_valid(unsigned short ideno) { return ideno < MAX_IDE; }
+> 
+> size_t ide_device_size(unsigned short ideno) { return MAX_DISK_NSECS; }
+> int ide_read_secs(unsigned short ideno, uint32_t secno, void *dst,
+>                   size_t nsecs) {
+>     int iobase = secno * SECTSIZE;
+>     memcpy(dst, &ide[iobase], nsecs * SECTSIZE);
+>     return 0;
+> }
+> 
+> int ide_write_secs(unsigned short ideno, uint32_t secno, const void *src,
+>                    size_t nsecs) {
+>     int iobase = secno * SECTSIZE;
+>     memcpy(&ide[iobase], src, nsecs * SECTSIZE);
+>     return 0;
+> }
+> ```
+> 
+> 这里的`secno`和`ideno`分别是磁盘扇区号和磁盘号。这里从函数的调用不难看出我们的磁盘默认只有1个.  扇区号对应是`entry`的偏移量(相对于基地址偏移了多少页)然后乘以每一页的扇区数量(`PAGE_NSECT`, 展开为8, 对应一个扇区就是512B).
+> 
+> 根据我们前面的实验, 知一个页是4KB, 一页可以放下512个表项, 于是一个表项就是4KB/512=8B, 对应是一个32位的变量. 我们这么对这个表项的域进行划分
+> 
+> ```c
+> /* *
+>  * swap_entry_t
+>  * --------------------------------------------
+>  * |         offset        |   reserved   | 0 |
+>  * --------------------------------------------
+>  *           24 bits            7 bits    1 bit
+>  * */
+> ```
+> 
+> 所以一个表项的偏移量可以这么算
+> 
+> ```c
+> #define swap_offset(entry) ({                                       \
+>                size_t __offset = (entry >> 8);                        \
+>                if (!(__offset > 0 && __offset < max_swap_offset)) {    \
+>                     panic("invalid swap_entry_t = %08x.\n", entry);    \
+>                }                                                    \
+>                __offset;                                            \
+>           })
+> ```
+> 
+> 至于那个`ide`, 这就是我们保留出来的一个磁盘, 刚好一个扇区512B, 那么512个`char`类型的变量就是512B. 再乘以我们保留的总共的扇区的数量(56个, 共7页)
 
 ### 练习1 理解基于`FIFO`的页面替换算法
 
