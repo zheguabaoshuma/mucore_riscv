@@ -60,11 +60,11 @@ sudo chmod 777 -R /path/to/folder
 *关于权限码*
 
 > 使用`chmod`的时候，用三位的权限码来分别表示文件所有者权限，文件所有者同组用户权限，其他用户权限。权限一共有三个：读、写、执行。
->
+> 
 > 数字`7`表示`111`，也就是三个权限都授予。
->
+> 
 > 数字`5`表示`101`，表示只授予读和执行权限。
->
+> 
 > 其他以此类推。
 
 ### `riscv64-unknown-elf-gcc`编译失败
@@ -156,9 +156,9 @@ gcc: fatal error: Killed signal terminated program cc1 compilation terminated.
 等错误，多尝试几次，如果都是报的不一样的`fatal error`，很有可能是因为内存不足的原因。如果每次都是报同一个错误，可能真的是因为`cc1`或者`cc1plus`出了问题。这时候应该检查编译器的部件。
 
 > 如果编译器用apt安装一般都没有问题，有问题也只能重装，因为我们并没有程序的源代码。
->
+> 
 > 如果是编译器是通过源代码编译出来的，那么检查编译器源代码目录下的`libexec/gcc/_compiler_name_/_version_/`文件夹下是否有`cc1`或者`cc1plus`。
->
+> 
 > 如果没有说明编译器的源码可能有问题，如果有，使用`ls -l .`确定是否具有所有文件的访问权限，授权之后再重新编译。
 
 ==完成编译后记得==
@@ -182,11 +182,11 @@ make
 注意在这里我们首先会生成系统的镜像`ucore.img`，
 
 ```makefile
-UCOREIMG	:= $(call totarget,ucore.img)
+UCOREIMG    := $(call totarget,ucore.img)
 
 
 $(UCOREIMG): $(kernel)
-	$(OBJCOPY) $(kernel) --strip-all -O binary $@
+    $(OBJCOPY) $(kernel) --strip-all -O binary $@
 
 $(call create_target,ucore.img)
 ```
@@ -240,9 +240,9 @@ riscv64-unknown-elf-gdb \
 ### 练习1：使用`gdb`验证启动流程
 
 - 众所周知，操作系统需要被加载到内存才能运行，但是操作系统不能自己把自己加载到内存。**如何将系统加载到内存呢**？
-
+  
   在我们的日常使用的电脑上，机器上电后首先运行一个简单的输入输出的系统`BIOS`，`BIOS`是被写在固件(ROM)中的一段简单的程序代码，它的主要工作是初始化硬件，找到正确的引导设备（硬盘还是u盘还是软盘等）并且引导设备上的`Bootloader`。在我们的`riscv64`机器上，并没有`BIOS`这样的输入输出交互系统，引导`Bootloader`是由其他的方式完成的
-
+  
   `Bootloader`是正儿八经的装载程序，负责将操作系统从外存中加载到内存运行。
 
 那么`riscv64`机器从上电到系统初始化的过程是怎样的呢，这就是本节实验的目的。
@@ -252,23 +252,23 @@ riscv64-unknown-elf-gdb \
 ```makefile
 .PHONY: qemu 
 qemu: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
-#	$(V)$(QEMU) -kernel $(UCOREIMG) -nographic
-	$(V)$(QEMU) \
-		-machine virt \
-		-nographic \
-		-bios default \
-		-device loader,file=$(UCOREIMG),addr=0x80200000
+#    $(V)$(QEMU) -kernel $(UCOREIMG) -nographic
+    $(V)$(QEMU) \
+        -machine virt \
+        -nographic \
+        -bios default \
+        -device loader,file=$(UCOREIMG),addr=0x80200000
 
 debug: $(UCOREIMG) $(SWAPIMG) $(SFSIMG)
-	$(V)$(QEMU) \
-		-machine virt \
-		-nographic \
-		-bios default \
-		-device loader,file=$(UCOREIMG),addr=0x80200000\
-		-s -S
+    $(V)$(QEMU) \
+        -machine virt \
+        -nographic \
+        -bios default \
+        -device loader,file=$(UCOREIMG),addr=0x80200000\
+        -s -S
 
 gdb:
-	riscv64-unknown-elf-gdb \
+    riscv64-unknown-elf-gdb \
     -ex 'file bin/kernel' \
     -ex 'set arch riscv:rv64' \
     -ex 'target remote localhost:1234'
@@ -291,84 +291,98 @@ make gdb
 `gdb`就会尝试执行上面的连接指令。
 
 > `gdb`的一些常用调试指令：
->
+> 
 > 1. **运行程序**：
+>    
 >    - `gdb <可执行文件>`：启动GDB并加载指定的可执行文件。
 >    - `r` 或 `run`：开始运行程序。
->    
+> 
 > 2. **设置断点**：
+>    
 >    - `b <函数名>`：在指定函数的开头设置断点。
 >    - `b <行号>`：在指定行号设置断点。
 >    - `b <文件名>:<行号>`：在指定文件和行号设置断点。
 >    - `delete <断点号>`：删除指定编号的断点。
 >    - `info breakpoints`：显示当前设置的断点列表。
->    
+> 
 > 3. **执行程序**：
+>    
 >    - `c` 或 `continue`：继续执行程序直到下一个断点。
 >    - `n` 或 `next`：执行下一行代码，如果是函数调用，则不进入函数内部。
 >    - `s` 或 `step`：执行下一行代码，如果是函数调用，则进入函数内部。
 >    - `finish`：执行当前函数的剩余部分并停止在返回处。
->    
+> 
 > 4. **查看变量和堆栈**：
+>    
 >    - `print <变量名>`：打印变量的值。
 >    - `info locals`：显示当前函数的局部变量。
 >    - `info args`：显示当前函数的参数。
 >    - `bt` 或 `backtrace`：显示函数调用堆栈。
 >    - `up` 和 `down`：在堆栈中上下导航。
 >    - `frame <帧号>`：切换到指定帧。
->    
+> 
 > 5. **修改变量值**：
+>    
 >    - `set variable <变量名> = <新值>`：修改变量的值。
->    
+> 
 > 6. **查看内存**：
+>    
 >    - `x/<格式> <地址>`：以指定格式查看内存内容，例如`x/x 0x12345678`以16进制格式查看内存地址0x12345678的内容。
->    
+>      
 >      在GDB（GNU Debugger）中，`x` 命令用于查看内存中的数据。它的语法如下：
->    
+>      
 >      ```sh
 >      x/<单位格式><数量格式><打印格式> 内存地址
 >      ```
->    
+>      
 >      - `<单位格式>`：表示查看的内存单元的大小，可以是 `b`（字节，8位）、`h`（半字，16位，即两个字节）或者 `w`（字，32位，即四个字节）。
->    
+>      
 >      - `<数量格式>`：表示要查看的内存单元的数量，可以是一个整数，也可以是一个寄存器（例如 `$eax`）。
->    
+>      
 >      - `<打印格式>`：表示以何种格式显示内存中的数据，常见的格式有：
+>        
 >        - `x`：十六进制格式
 >        - `d`：十进制格式
->           - `u`：无符号十进制格式
+>          - `u`：无符号十进制格式
 >        - `o`：八进制格式
->           - `t`：二进制格式
+>          - `t`：二进制格式
 >        - `c`：字符格式
 >        - `f`：浮点数格式
 >        - 等等。
->    
+> 
 > 7. **监视点**：
+>    
 >    - `watch <表达式>`：设置监视点，当表达式的值发生变化时停止程序执行。
 > 
 > 8. **条件断点**：
->       - `b <位置> if <条件>`：设置条件断点，仅当满足条件时触发断点。
+>    
+>    - `b <位置> if <条件>`：设置条件断点，仅当满足条件时触发断点。
 > 
 > 9. **显示源代码**：
->       - `list`：显示当前执行位置附近的源代码。
->    - `list <函数名>`：显示指定函数的源代码。
-> 
+>    
+>    - `list`：显示当前执行位置附近的源代码。
+>      - `list <函数名>`：显示指定函数的源代码。
 >    10. **加载符号文件**：
->     - `symbol-file <符号文件>`：加载指定的符号文件以获取更多调试信息。
+>        - `symbol-file <符号文件>`：加载指定的符号文件以获取更多调试信息。
 > 
-> 11. **退出GDB**：
->        - `q` 或 `quit`：退出GDB。
+> 10. **退出GDB**：
+>     
+>     - `q` 或 `quit`：退出GDB。
 > 
-> 12. **GDB**单指令执行一步
+> 11. **GDB**单指令执行一步
+>     
 >         - `si`
 > 
-> 13. **GDB**显示某个地址之后的若干条汇编指令
+> 12. **GDB**显示某个地址之后的若干条汇编指令
+>     
 >         - `x/10i 0x80000000`，显示`0x80000000`位置处的10条指令
 > 
-> 14. **GDB**显示指令寄存器`$pc`的指令
+> 13. **GDB**显示指令寄存器`$pc`的指令
+>     
 >         - `x/10i $pc`，显示`$pc`之后的10条指令。*注意`$pc`存的是下一条指令的地址，不是下一条指令的内容！！*
 > 
-> 15. **GDB**检查寄存器的值
+> 14. **GDB**检查寄存器的值
+>     
 >         - `info r t0`显示`t0`寄存器的值；`info register`检查所有寄存器的值。
 
 `gdb`连接成功后，程序不会马上运行。根据上面的指南，查看当前`pc`地址的后10条指令如下
@@ -390,13 +404,13 @@ make gdb
 从这里我们可以看到一些现象：
 
 - 我们所使用的`riscv`机器指令长度是32位的。**但是我们的`qemu`模拟出来的机器架构是64位的**。为了确定我们当前运行的操作系统到底是多少位的，在`gdb`调试台输入
-
+  
   ```sh
   info file
   ```
-
+  
   `gdb`调试器会返回当前运行的可执行文件信息
-
+  
   ```sh
   Symbols from "/home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab0/bin/kernel".
   Remote target using gdb-specific protocol:
@@ -417,13 +431,13 @@ make gdb
           0x0000000080201000 - 0x0000000080203000 is .data
           0x0000000080203000 - 0x0000000080203008 is .sdata
   ```
-
+  
   这里的`filetype`提示了我们当前的运行的`kernel`是一个64位的`elf`文件。*注意`rv64i`指令集中的大多数指令和`rv32i`是一样的，长度也是32位。指令的长度和系统的位数没有必然关系*。见：
-
+  
   https://stackoverflow.com/questions/56874101/how-does-risc-v-variable-length-of-instruction-work-in-detail#:~:text=1%20Answer&text=RISC%2DV%20allows%20mixing%2016,registers%20are%2032%2Dbits%20wide.
-
+  
   > 上面的`.text`，`.rodata`这些又是什么呢，其实是一个程序的不同存储用途的不同空间的名字(内存布局)
-  >
+  > 
   > - `.text` 段，即代码段，存放汇编代码
   > - `.rodata` 段，即只读数据段，顾名思义里面存放只读数据，通常是程序中 的常量
   > - `.data `段，存放被初始化的可读写数据，通常保存程序中的全局变量
@@ -431,13 +445,13 @@ make gdb
   > - `.bss `段，存放被初始化为 00 的 可读写数据，与`.data` 段的不同之处在于我们知道它要被初始化为 00 ，因此在可执行文件中只需记录这个段 的大小以及所在位置即可，而不用记录里面的数据
   > - `stack `，即栈，用来存储程序运行过程中的局部变量，以 及负责函数调用时的各种机制。它从高地址向低地址增长
   > - `heap` ，即堆，用来支持程序运行过程中内存的动 态分配，比如说你要读进来一个字符串，在你写程序的时候你也不知道它的长度究竟为多少，于是你只能在 运行过程中，知道了字符串的长度之后，再在堆中给这个字符串分配内存。
-  >
+  > 
   > <img src="C:\Users\Tuuuu\Desktop\project\os\image-20230924153625237.png" alt="image-20230924153625237" style="zoom:50%;" />
 
 - `qemu`模拟的机器上电后的复位地址是`0x1000`。复位地址和程序的起始地址是两回事。上电后计算机首先执行复位程序，进行一些硬件初始化，**然后启动`bootloader`**。`bootloader`会负责将操作系统加载到内存中。
-
+  
   我们的`bootloader`被指定在`0x80000000`地址的位置。注意看其中几条指令
-
+  
   ```sh
   0x100c:      ld      t0,24(t0)
   0x1010:      jr      t0
@@ -445,24 +459,24 @@ make gdb
   0x1018:      unimp
   0x101a:      .2byte  0x8000
   ```
-
+  
   这里如果在`gdb`中使用
-
+  
   ```sh
   x/x 0x1018
   ```
-
+  
   调试台会返回当前地址位置保存的值`0x1018: 0x0000000080000000`。可以看到经过`0x1010:      jr      t0`之后，程序计数器会跳转到`0x80000000`的位置开始执行程序。
 
 - `ucore`的入口在`0x80200000`处。使用`info file`之后的`Entry point: 0x80200000`已经提示。至于为什么是在`0x80200000`，这也是人为指定的。在源代码文件夹下的`tools`目录中有一个`kernel.ld`文件，这个文件是内核的链接文件，内核真正的进入地址在这个文件里面已经被规定了
-
+  
   ```sh
   OUTPUT_ARCH(riscv)
   ENTRY(kern_entry)
   
   BASE_ADDRESS = 0x80200000;
   ```
-
+  
   这时`kernel.ld`文件的头部信息，指定了内核编码输出的架构为`riscv`，内核的入口是`kern_entry`，内核存放的基址是`0x80200000`。如果我们修改这个基址的值，对应的`ucore`的装载地址就变为修改后的地址。
 
 ## lab1
@@ -505,23 +519,23 @@ bootstacktop:
 `kern_entry`中只有两端指令：
 
 - `la sp, bootstacktop`: 这条指令使用伪指令 `la`（load address）来将堆栈指针寄存器 `sp`（Stack Pointer）的值设置为 `bootstacktop` 符号的地址。这意味着内核将使用 `bootstacktop` 符号所指示的位置作为初始堆栈顶部。
-
+  
   > `bootstacktop`的地址是怎么来的呢？`0x80204000`又是怎么出来的呢？
 
 - `tail kern_init`: 这是一个跳转指令，它跳转到一个名为 `kern_init` 的函数。`tail` 指令的特点是它会在跳转之前保存当前函数的返回地址，以便在跳转后返回。用于初始化操作系统内核。
-
+  
   关于`kern_init`，这个其实在`kern_init.c`中就已经定义。机器会根据这个符号自动寻找到对应的代码所在位置
-
+  
   > 值得一提的是，上一节实验我们指出`ENTRY`是在`0x80200000`中，但是这只是装载的位置，而真正进入初始化函数`kern_init`的位置并不是这个
-  >
+  > 
   > ```assembly
   > kern_entry:
   >     la sp, bootstacktop
-  >     80200000:	00004117          	auipc	sp,0x4
-  >     80200004:	00010113          	mv	sp,sp
+  >     80200000:    00004117              auipc    sp,0x4
+  >     80200004:    00010113              mv    sp,sp
   > 
   >     tail kern_init
-  >     80200008:	a009                	j	8020000a <kern_init>
+  >     80200008:    a009                    j    8020000a <kern_init>
   > 
   > 000000008020000a <kern_init>:
   > ...
@@ -604,15 +618,15 @@ void interrupt_handler(struct trapframe *tf) {
 关于`interrupt_handler()`，有一些值得注意的地方：
 
 - 这里的`interrupt_handler()`函数是一个中断处理函数。在`trap()`函数中被调用
-
+  
   ```c
   void trap(struct trapframe *tf) { trap_dispatch(tf); }
   ```
-
+  
   而`trap()`函数则是一个直接封装好的抛出中断的函数。
 
 - 函数的参数`tf`是一个结构体，被定义在`trap.h`的头文件中
-
+  
   ```c
   struct trapframe {
       struct pushregs gpr;
@@ -622,11 +636,11 @@ void interrupt_handler(struct trapframe *tf) {
       uintptr_t cause;
   };
   ```
-
+  
   这个结构体中包含了中断的各种状态参数。本代码中，通过`cause`成员来判断触发的中断类型
 
 - `ticks`这个变量已经在其他文件中定义好，不需要再`trap.c`中重复定义，但是需要再函数头部声明。
-
+  
   ```c
   extern volatile size_t ticks;
   ```
@@ -705,7 +719,7 @@ int kern_init(void) {
 ```
 
 - 这里`idt_init()`函数是一个中断初始化的函数。它的定义位于`trap.c`。
-
+  
   ```c
   void idt_init(void) {
       extern void __alltraps(void);
@@ -716,21 +730,21 @@ int kern_init(void) {
       write_csr(stvec, &__alltraps);
   }
   ```
-
+  
   根据实验指导书知
-
+  
   > 约定 ：若中断前处于S态 ，`sscratch`为0 
-  >
+  > 
   > 若中断前处于U态 ，`sscratch`存储内核栈地址 
-  >
+  > 
   > 那么之后就可以通过`sscratch`的数值判断是内核态产生的中断还是用户态产生的中断 
-  >
+  > 
   > 我们现在是内核态所以给`sscratch`置零
-
+  
   `stvec`中存入了`__alltraps`符号的地址，对应我们中断向量，遇到中断的时候从寄存器中读取中断处理程序`__alltraps`的地址跳转执行。
-
+  
   关于`__alltraps`中断处理程序，可以在`trapentry.S`的汇编文件中找到相应的内容。
-
+  
   ```assembly
   #include <riscv.h>
   
@@ -847,11 +861,11 @@ int kern_init(void) {
       # return from supervisor call
       sret
   ```
-
+  
   这个程序主要定义了两个操作，一是`SAVE_ALL`，二是`RESTORE_ALL`。其中，`SAVE_ALL`的操作是将`x0`到`x31`，`s0`到`s4`寄存器的值保存到栈区。注意`s0`到`s4`寄存器保存的是状态字，`x0`到`x31`寄存器保存的是数据。中断之后需要将中断信息`sscratch`，`scause`这些东西写入内存中，不过由于`csr`（一种特殊的控制和状态寄存器）不能直接写到内存，只能先经过通用寄存器再送入内存。
-
+  
   > 这里这些状态寄存器指导书上也没说是干啥的，代码也没有注释有点逆天
-  >
+  > 
   > 1. `sscratch`（Scratch Register）：
   >    - `sscratch` 寄存器是一个通用的临时寄存器，通常用于在中断或异常处理时保存临时数据或上下文信息。它的内容可以在进入中断或异常处理程序之前被保存，并在恢复时重新加载。
   > 2. `sstatus`（Status Register）：
@@ -866,11 +880,11 @@ int kern_init(void) {
   >    - `sbadaddr` 寄存器包含了导致最近一次异常的指令的虚拟地址。这个寄存器在某些异常情况下非常有用，因为它可以帮助异常处理程序确定哪个地址或指令导致了异常。
   > 5. `scause`（Cause Register）：
   >    - `scause` 寄存器包含了最近一次异常或中断的原因代码。它提供了异常的分类和信息，例如是中断、陷阱还是其他类型的异常，以及具体的异常原因代码。
-
+  
   而在`RESTORE_ALL`中，可以看到只有`x0`到`x31`的数据寄存器被恢复，而`s0`到`s4`的控制状态寄存器没有全部恢复，这是因为`s0`到`s4`寄存器本来也不是专门用来存储控制状态信息的，只是`csr`到内存的一个中转站。像`scratch`，`scause`这些状态信息，在处理完当前的中断之后其实就没有什么用处了，没必要恢复；`sepc`，`sstatus`分别需要用来帮助中断程序跳转回原来的程序以及恢复原来的状态（比如是否允许中断，优先级等），必须要恢复。
 
 - `clock_init()`是时钟中断初始化函数。练习1中定时的时钟中断就是从这产生的。首先找到位于`clock.c`中`clock_init()`函数的定义
-
+  
   ```c
   void clock_init(void) {
       // enable timer interrupt in sie
@@ -886,15 +900,15 @@ int kern_init(void) {
       cprintf("++ setup timer interrupts\n");
   }
   ```
-
+  
   这个函数完成了两件重要的事：
-
+  
   1. 初始化了`SIE`状态字为`MIP_STIP`
-
+     
      > `SIE`：中断使能位，控制中断是否允许触发。
-     >
+     > 
      > `MIP_STIP`的定义可以在`riscv.h`中找到
-     >
+     > 
      > ```c
      > #define IRQ_S_TIMER  5
      > ...
@@ -902,19 +916,19 @@ int kern_init(void) {
      > ...
      > #define SIP_STIP MIP_STIP
      > ```
-     >
+     > 
      > 不难看出，其实`sie`中存储的一个比特串的一个特定位置表示一个特定种类的中断。
-
+  
   2. 启动定时时钟中断`clock_set_next_event()`
-
+     
      `clock_set_next_event()`函数的定义可以在`clock.c`找到定义
-
+     
      ```c
      void clock_set_next_event(void) { sbi_set_timer(get_cycles() + timebase); }
      ```
-
+     
      而这里的`sbi_set_timer()`函数是一个与底层硬件交互的函数（带`sbi`的函数表示`Supervisor Binary Interface`的一种接口函数），在`sbi.c`中可以找到定义
-
+     
      ```c
      uint64_t SBI_SET_TIMER = 0;
      ...
@@ -922,9 +936,9 @@ int kern_init(void) {
          sbi_call(SBI_SET_TIMER, stime_value, 0, 0);
      }
      ```
-
+     
      这里的`sbi_call()`函数可以理解成一个通用的硬件接口函数，用于指定硬件执行某个特定的操作。它的定义同样在`sbi.c`中有定义
-
+     
      ```c
      uint64_t sbi_call(uint64_t sbi_type, uint64_t arg0, uint64_t arg1, uint64_t arg2) {
          uint64_t ret_val;
@@ -942,15 +956,15 @@ int kern_init(void) {
          return ret_val;
      }
      ```
-
+     
      `sbi_call()`函数可以直接执行一段汇编代码。在这段代码中，有一个汇编指令`ecall`，该指令可以触发一个异常事件。
-
+     
      > `ecall` 是 RISC-V 架构中的一种汇编指令，用于触发一个异常事件，通常用于进行系统调用（System Call）。RISC-V 是一种开放的指令集架构（ISA），具有可扩展性，广泛用于嵌入式系统和其他计算机架构。
-     >
+     > 
      > `ecall` 指令的主要作用是在用户程序（User Mode）中切换到特权模式（Privileged Mode），例如超级用户模式（Supervisor Mode）或机器模式（Machine Mode），以执行操作系统内核中的特权级别代码。通过执行 `ecall` 指令，用户程序可以请求执行特权级别代码来执行系统调用或其他需要特权级别权限的操作。
-     >
+     > 
      > 一般来说，`ecall` 指令会触发一个异常，然后处理器会跳转到预定义的异常处理程序地址。在异常处理程序中，操作系统内核会根据不同的系统调用号或其他条件来确定要执行的操作，然后执行相应的处理逻辑。系统调用通常用于执行一些敏感操作，例如文件 I/O、进程管理、内存管理等。
-
+     
      通过`gdb`单步调试的方法，可以找到`ecall`调用后系统执行的操作。`ecall`所引起的跳转是硬件级别的指令跳转，在源代码中是没有直接对应实现的。
      
      ```sh
@@ -1168,9 +1182,9 @@ int kern_init(void) {
      ```
      
      > 关于`tf`
-     >
+     > 
      > 这是一个由寄存器值和一些控制信息组成的结构体
-     >
+     > 
      > ```c
      > struct pushregs {
      >     uintptr_t zero;  // Hard-wired zero
@@ -1214,10 +1228,7 @@ int kern_init(void) {
      >     uintptr_t badvaddr;
      >     uintptr_t cause;
      > };
-     >  ```
-     
-
-
+     > ```
 
 ## Lab2
 
@@ -1461,7 +1472,7 @@ static inline uintptr_t page2pa(struct Page *page) {
 ```
 
 > 必须要指出的是，我们使用页式模式来管理内存，是说我们每次进行内存操作都是页大小的整数倍的内存。虽然内存被分成一页一页，但是并没有真的为每一页内存都建立了一个数据结构来对应。比如在`first fit`的分配函数中，我们可以指定分配若干页
->
+> 
 > ```c
 > default_alloc_pages(size_t n) {
 >     assert(n > 0);
@@ -1492,11 +1503,11 @@ static inline uintptr_t page2pa(struct Page *page) {
 >     return page;
 > }
 > ```
->
+> 
 > 这段代码干了两件事，一是找到一个大小合适的“本子”，二是将这个本子中你需要的这么多页内存摘出来一个小本子返回。假如我们调用`default_alloc_pages(2)`，那么后面的`struct Page *p = page + n`这里就会把2页内存划出来，第一步找到的这个本子它的`property`减掉2（页数减2），划出来的这部分的新的小本子封面注上“这段内存已经被分配”（`flag`的`PG_property`位被清0）。
->
+> 
 > 注意划出来两页的过程中，我们并没有给这个两页显式分配一个独立的数据结构`Page`来管理，这是因为这一段内存初始化时已经被看作了一堆连续的`Page`。
->
+> 
 > ```c
 > default_init_memmap(struct Page *base, size_t n) {
 >     assert(n > 0);
@@ -1508,7 +1519,7 @@ static inline uintptr_t page2pa(struct Page *page) {
 >     }
 >     ...
 > ```
->
+> 
 > `base`是用户页内存的起始地址，每隔一个`Page`的大小，就把这一段内存的`flag`置位，`property`初始化。虽然没有明说，但是相当于就是把这些设置的内存看作一个`Page`结构体在操作。
 
 使用`gdb`调试`default_init_memmap`函数
@@ -1518,8 +1529,6 @@ static inline uintptr_t page2pa(struct Page *page) {
 base = 0xffffffffc020f318
 n = 31929
 ```
-
-
 
 ### 练习1 深入理解First Fit内存分配算法的实现
 
@@ -1669,23 +1678,23 @@ best_fit_alloc_pages(size_t n) {
 由于本次实验我们使用的是虚拟页式内存，所以在程序进入的时候我们就要做页表初始化以及地址虚拟化。
 
 > 在正式讲解这一部分之前，首先要清楚我们的地址格式。实验中我们才用的是`sv39`的地址格式，一共是64位。其中虚拟地址有 39 位，后 12 位是页内偏移，那么还剩下 27 位 可以编码不同的虚拟页号。
->
+> 
 > Sv39 in RISC-V64 uses 39-bit virtual address to access 56-bit physical address!
->
+> 
 > Sv39 page table entry:
->
+> 
 > // +-----10-----+-----26----+-----9-----+-----9-----+---2----+--------8--------+
->
+> 
 > // |   Reserved   |    PPN[2]   |    PPN[1]    |    PPN[0]   |Reserved|D|A|G|U|X|W|R|V|
->
+> 
 > // +------------+------------+------------+-----------+---------+------------------+
->
+> 
 > Sv39 linear address structure
->
+> 
 > // +----9----+-----9-----+-----9----+----------12---------+
->
+> 
 > // |    VPN2    |    VPN1    |    VPN0    |  Offset within Page  |
->
+> 
 > // +----------+-----------+----------+----------------------+
 
 实验中使用的三级页表，基本的页框大小是4KB，页表项的长度是8字节，一个页框中可以放4K/8=512个页表项，恰好对应用9位的`VPN`来索引。
@@ -1725,7 +1734,7 @@ kern_entry:
     sfence.vma
     # 从此，我们给内核搭建出了一个完美的虚拟内存空间！
     #nop # 可能映射的位置有些bug。。插入一个nop
-    
+
     # 我们在虚拟内存空间中：随意将 sp 设置为虚拟地址！
     lui sp, %hi(bootstacktop)
 
@@ -1755,7 +1764,6 @@ boot_page_table_sv39:
     .zero 8 * 511
     # 设置最后一个页表项，PPN=0x80000，标志位 VRWXAD 均为 1
     .quad (0x80000 << 10) | 0xcf # VRWXAD
-
 ```
 
 看着有些晕，但是只要记住几个寄存器是存的什么东西就比较好理解。
@@ -1778,3 +1786,162 @@ boot_page_table_sv39:
 ```
 
 这里的`.zero`用于分配一段内存并将其值初始化为0。由于是在符号`boot_page_table_sv39`之下，所以这段内存的起始位置就是符号`boot_page_table_sv39`的位置，而这个符号的位置恰好就是页表基址，即使得页表的前512项全部为0。
+
+## lab3
+
+lab3主要的工作是缺页异常以及换页算法的实现。众所周知，我们的计算机目前广泛采用虚拟内存，以获得对于程序来说更加大的内存空间。在程序眼里它可以使用的内存远大于实际的物理内存。如果用的数据量大于物理内存，那么就把内存中一部分数据放到磁盘中。
+
+> 关于我们的"磁盘"和"内存": 由于我们的系统跑在一个模拟器上, 我们也没法真的去写一个磁盘驱动和文件系统来让我们的程序到底层去折腾. 这里我们直接将内存中的一片空间认为划分出当作磁盘.
+> 在`swapfs.c`文件中, 我们可以看到几个和"磁盘"交互的函数
+> 
+> ```c
+> #include <swap.h>
+> #include <swapfs.h>
+> #include <mmu.h>
+> #include <fs.h>
+> #include <ide.h>
+> #include <pmm.h>
+> #include <assert.h>
+> 
+> void
+> swapfs_init(void) {
+>     static_assert((PGSIZE % SECTSIZE) == 0);
+>     if (!ide_device_valid(SWAP_DEV_NO)) {
+>         panic("swap fs isn't available.\n");
+>     }
+>     max_swap_offset = ide_device_size(SWAP_DEV_NO) / (PGSIZE / SECTSIZE);
+> }
+> 
+> int
+> swapfs_read(swap_entry_t entry, struct Page *page) {
+>     return ide_read_secs(SWAP_DEV_NO, swap_offset(entry) * PAGE_NSECT, page2kva(page), PAGE_NSECT);
+> }
+> 
+> int
+> swapfs_write(swap_entry_t entry, struct Page *page) {
+>     return ide_write_secs(SWAP_DEV_NO, swap_offset(entry) * PAGE_NSECT, page2kva(page), PAGE_NSECT);
+> }
+> ```
+> 
+> 在初始化函数`swapfs_init()`中, 
+
+### 练习1 理解基于`FIFO`的页面替换算法
+
+`FIFO`算法顾名思义就是先进入内存的页面先被换掉，后进入的后换掉。在`swap_fifo.c`的文件中,我们可以找到相关的函数.
+
+```c
+extern list_entry_t pra_list_head;
+/*
+ * (2) _fifo_init_mm: init pra_list_head and let  mm->sm_priv point to the addr of pra_list_head.
+ *              Now, From the memory control struct mm_struct, we can access FIFO PRA
+ */
+static int
+_fifo_init_mm(struct mm_struct *mm)
+{     
+     list_init(&pra_list_head);
+     mm->sm_priv = &pra_list_head;
+     //cprintf(" mm->sm_priv %x in fifo_init_mm\n",mm->sm_priv);
+     return 0;
+}
+```
+
+`FIFO`算法的关键就是维护一个队列. 这里我们用我们上次用到的`list_entry_t`双向链表来实现这个队列的维护. 在初始化函数`_fifo_init_mm`中. 我们将这个链表初始化并且将其添加到内存空间管理器`mm`中
+
+```c
+static int
+
+_fifo_map_swappable(struct mm_struct *mm, uintptr_t addr, struct Page *page, int swap_in)
+
+{
+
+list_entry_t *head=(list_entry_t*) mm->sm_priv;
+
+list_entry_t *entry=&(page->pra_page_link);
+
+assert(entry != NULL && head != NULL);
+list_add(head, entry);
+
+return 0;
+
+}
+```
+
+`_fifo_map_swappable()`函数用于指定页面换入的位置. 根据算法, 队伍的`head`是入口, 最新的页面应该放到队伍的`head`.
+
+```c
+ static int
+
+_fifo_swap_out_victim(struct mm_struct *mm, struct Page ** ptr_page, int in_tick)
+{
+list_entry_t *head=(list_entry_t*) mm->sm_priv;
+
+assert(head != NULL);
+
+assert(in_tick==0);
+list_entry_t* entry = list_prev(head);
+if (entry != head) {
+list_del(entry);
+*ptr_page = le2page(entry, pra_page_link);
+} 
+else {
+*ptr_page = NULL;
+}
+
+return 0;
+
+}
+```
+
+函数`_fifo_swap_out_victim`用于指定一个页面从内存中换出去. 显然我们应该将最先进入的换出, 也就是队伍的`tail`, 由于是双向链表, 只需要取头元素的上一个删去即可.
+
+```c
+static int
+
+_fifo_check_swap(void) {
+cprintf("write Virt Page c in fifo_check_swap\n");
+*(unsigned char *)0x3000 = 0x0c;
+assert(pgfault_num==4);
+cprintf("write Virt Page a in fifo_check_swap\n");
+*(unsigned char *)0x1000 = 0x0a;
+assert(pgfault_num==4);
+cprintf("write Virt Page d in fifo_check_swap\n");
+*(unsigned char *)0x4000 = 0x0d;
+assert(pgfault_num==4);
+cprintf("write Virt Page b in fifo_check_swap\n");
+*(unsigned char *)0x2000 = 0x0b;
+assert(pgfault_num==4);
+cprintf("write Virt Page e in fifo_check_swap\n");
+*(unsigned char *)0x5000 = 0x0e;
+assert(pgfault_num==5);
+cprintf("write Virt Page b in fifo_check_swap\n");
+*(unsigned char *)0x2000 = 0x0b;
+assert(pgfault_num==5);
+cprintf("write Virt Page a in fifo_check_swap\n");
+*(unsigned char *)0x1000 = 0x0a;
+assert(pgfault_num==6);
+cprintf("write Virt Page b in fifo_check_swap\n");
+*(unsigned char *)0x2000 = 0x0b;
+assert(pgfault_num==7);
+cprintf("write Virt Page c in fifo_check_swap\n");
+*(unsigned char *)0x3000 = 0x0c;
+assert(pgfault_num==8);
+cprintf("write Virt Page d in fifo_check_swap\n");
+*(unsigned char *)0x4000 = 0x0d;
+assert(pgfault_num==9);
+cprintf("write Virt Page e in fifo_check_swap\n");
+*(unsigned char *)0x5000 = 0x0e;
+assert(pgfault_num==10);
+cprintf("write Virt Page a in fifo_check_swap\n");
+assert(*(unsigned char *)0x1000 == 0x0a);
+*(unsigned char *)0x1000 = 0x0a;
+assert(pgfault_num==11);
+return 0;
+
+}
+```
+
+`_fifo_check_swap()`函数是我们的验证函数. 这个函数只干了一件事: 向内存中写入数据, 如果内存中没有这个虚拟地址的页面,那么就会引起缺页中断, 然后调用置换算法. 这里的`assert()`函数也称为断言函数, 如果函数参数为假, 那么系统就会进入恐慌状态(panic state)出现异常. 
+
+> 系统内核恐慌（Kernel Panic）是指操作系统内核遇到无法处理的严重错误或异常情况时发生的一种状态。在这种情况下，操作系统不再能够正常运行，系统通常会停止响应用户输入，并且可能需要重新启动才能恢复正常。
+> 
+> 系统内核恐慌通常是由于硬件故障、驱动程序错误、内存问题、操作系统错误或恶意软件等引起的。当内核检测到一个严重错误时，它会停止执行正在运行的程序，并显示一个错误消息（通常包含有关错误的详细信息），然后系统可能会自动重启以便尝试恢复正常操作。
