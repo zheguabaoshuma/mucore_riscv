@@ -98,7 +98,9 @@ swap_out(struct mm_struct *mm, int n, int in_tick)
           //cprintf("SWAP: choose victim page 0x%08x\n", page);
           
           v=page->pra_vaddr; 
+          //assert(page->pra_vaddr!=0);
           pte_t *ptep = get_pte(mm->pgdir, v, 0);
+          //cprintf("SWAP: swap_out: i %d, vaddr 0x%x, ptep %x, value %x\n", i, v, ptep, *ptep);
           assert((*ptep & PTE_V) != 0);
 
           if (swapfs_write( (page->pra_vaddr/PGSIZE+1)<<8, page) != 0) {

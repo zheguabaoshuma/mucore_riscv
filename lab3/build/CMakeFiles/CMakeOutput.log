@@ -38,3 +38,29 @@ Compilation of the C compiler identification source "CMakeCCompilerId.c" produce
 
 The C compiler identification is GNU, found in "/home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/3.22.1/CompilerIdC/CMakeCCompilerId.o"
 
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/riscv64-unknown-elf-gcc 
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/3.22.1/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/riscv64-unknown-elf-gcc 
+Build flags: 
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/home/huangber/project/riscv_os/riscv64-ucore-labcodes/lab3/build/CMakeFiles/3.22.1/CompilerIdC/CMakeCCompilerId.o"
+
