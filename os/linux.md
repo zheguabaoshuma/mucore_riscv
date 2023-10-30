@@ -2013,3 +2013,115 @@ return 0;
 (解释的函数:`_fifo_init_mm()`, `list_init()`, `_fifo_swappable()`, `list_add()`, `_fifo_swap_out_victim()`, `list_prev()`, `list_del()`, `le2page()`, `_fifo_check_swap()`, `assert()`共十个函数)
 
 ### 练习2 理解不同分页模式的工作原理
+
+在正式进入之前首先看一下什么是`pte`和`pde`
+
+- `pte` 是页表中的一个条目，用于将虚拟地址映射到物理地址。每个 `pte` 包含一个物理页框的地址，以及一些标志位，用于控制页面的访问权限等。在 x86 架构下，一个 `pte` 的大小为 32 位或 64 位，取决于 CPU 的位数。
+
+- `pde` 是页目录中的一个条目，用于将虚拟地址映射到页表。每个 `pde` 包含一个指向页表的指针，以及一些标志位，用于控制页面的访问权限等。在 x86 架构下，一个 `pde` 的大小为 32 位或 64 位，取决于 CPU 的位数。
+
+我们在这里所讨论的`sv39`，`sv42`等都是`pte`的格式，也就是一个从虚拟地址映射到物理地址的条目。这些条目在`x86`架构的机器上都是64位的（*在我们跑的`riscv64`机器上也是64位的*），至于为什么叫`sv39`是因为`pte`转化过去的虚拟地址是39位的（9+9+9+12off）。而`pte`本身都是26+9+9+2+8（剩下的高位不使用），**注意`pte`是没有页内偏移的，因为只用来寻找页，虚拟地址和物理地址都有页内偏移的域**。
+
+```c
+// A linear address 'la' has a four-part structure as follows:
+//
+// +--------9-------+-------9--------+-------9--------+---------12----------+
+// | Page Directory | Page Directory |   Page Table   | Offset within Page  |
+// |     Index 1    |    Index 2     |                |                     |
+// +----------------+----------------+----------------+---------------------+
+//  \-- PDX1(la) --/ \-- PDX0(la) --/ \--- PTX(la) --/ \---- PGOFF(la) ----/
+//  \-------------------PPN(la)----------------------/
+//
+// The PDX1, PDX0, PTX, PGOFF, and PPN macros decompose linear addresses as shown.
+// To construct a linear address la from PDX(la), PTX(la), and PGOFF(la),
+// use PGADDR(PDX(la), PTX(la), PGOFF(la)).
+
+// RISC-V uses 39-bit virtual address to access 56-bit physical address!
+// Sv39 virtual address:
+// +----9----+----9---+----9---+---12--+
+// |  VPN[2] | VPN[1] | VPN[0] | PGOFF |
+// +---------+----+---+--------+-------+
+//
+// Sv39 physical address:
+// +----26---+----9---+----9---+---12--+
+// |  PPN[2] | PPN[1] | PPN[0] | PGOFF |
+// +---------+----+---+--------+-------+
+//
+// Sv39 page table entry:
+// +----26---+----9---+----9---+---2----+-------8-------+
+// |  PPN[2] | PPN[1] | PPN[0] |Reserved|D|A|G|U|X|W|R|V|
+// +---------+----+---+--------+--------+---------------+
+```
+
+从这个图不难看出各个地址之间的关系。至于`pde`，作为一个页表项来说，不管多少级的页表，每个页表的页表项都是和最低级的页表一样长的，最低级的页表存的就是`pte`，`pte`是64位，自然`pde`也是64位，并且各位值的意义都是一样的。
+
+下面是一个关键的函数`get_pte()`
+
+```c
+pte_t *get_pte(pde_t *pgdir, uintptr_t la, bool create) {
+    pde_t *pdep1 = &pgdir[PDX1(la)];
+    if (!(*pdep1 & PTE_V)) {
+        struct Page *page;
+        if (!create || (page = alloc_page()) == NULL) {
+            return NULL;
+        }
+        set_page_ref(page, 1);
+        uintptr_t pa = page2pa(page);
+        memset(KADDR(pa), 0, PGSIZE);
+        *pdep1 = pte_create(page2ppn(page), PTE_U | PTE_V);
+    }
+    pde_t *pdep0 = &((pde_t *)KADDR(PDE_ADDR(*pdep1)))[PDX0(la)];
+//    pde_t *pdep0 = &((pde_t *)(PDE_ADDR(*pdep1)))[PDX0(la)];
+    if (!(*pdep0 & PTE_V)) {
+    	struct Page *page;
+    	if (!create || (page = alloc_page()) == NULL) {
+    		return NULL;
+    	}
+    	set_page_ref(page, 1);
+    	uintptr_t pa = page2pa(page);
+    	memset(KADDR(pa), 0, PGSIZE);
+ //   	memset(pa, 0, PGSIZE);
+    	*pdep0 = pte_create(page2ppn(page), PTE_U | PTE_V);
+    }
+    return &((pte_t *)KADDR(PDE_ADDR(*pdep0)))[PTX(la)];
+}
+```
+
+在这个函数中，传入的参数是一个`pde`指针，一个线性地址（就是`sv39`虚拟地址，见上）和一个标志位。这里的`pdep1`是线性地址`la`的前9位，第一个`if`语句块做的事情就是判断前9位指向的下一级页表是否有效，如果无效，那么就进入语句块，选择创建一个新的页表，否则继续向下，根据`pdep1`指向的页表，在这个页表中继续找。直到找到一个页表项，然后返回。
+
+一句话概括就是，通过线性虚拟地址`la`找到对应的页表项
+
+> 为什么要创建页表？上次不是也创建了个啥？
+>
+> 上一次的实验完成了虚拟空间的创建（通过设置`satp`寄存器，让每次访问的虚拟地址都减去一个偏移量取访问真正的物理内存），数据按照4KB的方式在内存中对齐，在这个4kB对齐的空间中分配一个大的三级页表（或者叫做页目录）
+>
+> ```assembly
+> .section .data # 在内存中定义一个数据段
+>     # 由于我们要把这个页表放到一个页里面，因此必须 12 位对齐
+>     .align PGSHIFT
+>     .global boot_page_table_sv39
+> # 分配 4KiB 内存给预设的三级页表
+> boot_page_table_sv39:
+>     # 0xffffffff_c0000000 map to 0x80000000 (1G)
+>     # 前 511 个页表项均设置为 0 ，因此 V=0 ，意味着是空的(unmapped)
+>     .zero 8 * 511
+>     # 设置最后一个页表项，PPN=0x80000，标志位 VRWXAD 均为 1
+>     .quad (0x80000 << 10) | 0xcf # VRWXAD
+> 
+> ```
+>
+> 然后这个`boot_page_table_sv39`在`pmm.c`中再次被引用，按一个字节一个字节的方式去读
+>
+> ```c
+> extern char boot_page_table_sv39[];
+> boot_pgdir = (pte_t*)boot_page_table_sv39;
+> boot_cr3 = PADDR(boot_pgdir);
+> check_pgdir();
+> static_assert(KERNBASE % PTSIZE == 0 && KERNTOP % PTSIZE == 0);
+> ```
+>
+> 说白了这个只是按照目录一项项摆好了椅子，里面还没人去坐，虽然每一个位置都已经对应了一片内存空间了，但是一个`pte`除了映射地址，还存储了一些控制信息，所以不能想当然认为分好了就坐上去了。
+
+以上就是`sv39`模式下如何通过一个线性地址`la`找到页表项`pte`的方式，页表项`pte`存储在`la`指向的位置，页表项中的地址指向了物理空间的一段内存。（这里我们讨论的“虚拟空间”是指通过页目录页表项来索引的空间，“物理空间”是指`entry.s`中偏移之后的那一段空间）
+
+如果使用不同的模式`sv42`

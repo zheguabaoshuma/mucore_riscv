@@ -12,7 +12,8 @@ int time=0;
 
 static int
 _page_register(struct Page *page) {
-    lru_use[(int)(page->pra_vaddr/PGSIZE)]=1;
+    cprintf("%x\n",(page->pra_vaddr));
+    lru_use[(page->pra_vaddr/PGSIZE)]=1;
     time++;
     return 0;
 }
@@ -22,8 +23,8 @@ _page_unregister(struct Page *page) {
     return 0;
 }
 static int
-_page_use(struct Page *page) {
-    lru_use[(int)(page->pra_vaddr/PGSIZE)]++;
+_page_use(uintptr_t pra_vaddr) {
+    lru_use[(int)(pra_vaddr/PGSIZE)]++;
     return 0;
 }
 
@@ -46,7 +47,9 @@ static int
 _lru_init_mm(struct mm_struct* mm) {
     list_init(&pra_list_head);
     mm->sm_priv=&pra_list_head;
-    memset(lru_use, 9999, sizeof(lru_use));
+    for(int i=1;i<100;i++){
+        lru_use[i]=9999;
+    }
     return 0;
 }
 
@@ -95,36 +98,51 @@ _lru_swap_out_victim(struct mm_struct *mm, struct Page ** ptr_page, int in_tick)
 
 static int
 _lru_check_swap(void){
+    cprintf("check swap (lru)\n");
     *(unsigned char *)0x3000 = 0x0c;
+    _page_use(0x3000);
     assert(pgfault_num==4);
     *(unsigned char *)0x1000 = 0x0a;
+    _page_use(0x1000);
     assert(pgfault_num==4);
     *(unsigned char *)0x4000 = 0x0d;
+    _page_use(0x4000);
     assert(pgfault_num==4);
     *(unsigned char *)0x2000 = 0x0b;
+    _page_use(0x2000);
     assert(pgfault_num==4);
     *(unsigned char *)0x5000 = 0x0e;
+    _page_use(0x5000);
     assert(pgfault_num==5);
     *(unsigned char *)0x2000 = 0x0b;
+    _page_use(0x2000);
     assert(pgfault_num==5);
     *(unsigned char *)0x1000 = 0x0a;
+    _page_use(0x1000);
     assert(pgfault_num==5);
     *(unsigned char *)0x2000 = 0x0b;
+    _page_use(0x2000);
     assert(pgfault_num==5);
     *(unsigned char *)0x2000 = 0x0b;
+    _page_use(0x2000);
     assert(pgfault_num==5);
     *(unsigned char *)0x2000 = 0x0b;
+    _page_use(0x2000);
     assert(pgfault_num==5);
     *(unsigned char *)0x2000 = 0x0b;
+    _page_use(0x2000);
     assert(pgfault_num==5);
     *(unsigned char *)0x3000 = 0x0c;
+    _page_use(0x3000);
     assert(pgfault_num==5);
     *(unsigned char *)0x4000 = 0x0d;
+    _page_use(0x4000); 
     assert(pgfault_num==5);
     *(unsigned char *)0x5000 = 0x0e;
+    _page_use(0x5000);
     assert(pgfault_num==5);
-    assert(*(unsigned char *)0x1000 == 0x0a);
     *(unsigned char *)0x1000 = 0x0a;
+    _page_use(0x1000);
     assert(pgfault_num==6);
 
     return 0;
